@@ -1,0 +1,8 @@
+[
+ {"capability":"screens (6)","source":"public/*.html","outcome":"migrate","status":"done","next_action":"none"},
+ {"capability":"schema + seed (cases, checks, fbr_atl)","source":"SQLite","outcome":"migrate","status":"done","next_action":"none"},
+ {"capability":"existing records","source":"data/onboarding.sqlite","outcome":"migrate","status":"pending","next_action":"user may export existing cases if they matter"},
+ {"capability":"auth","source":"none in source","outcome":"none","status":"n/a","next_action":"none"},
+ {"capability":"CNIC OCR via Amazon Bedrock (bearer token)","source":"cnicOcr.js","outcome":"preserve","status":"pending-secret","next_action":"add AWS_BEARER_TOKEN_BEDROCK; falls back to sample reading until then"},
+ {"capability":"Bedrock SigV4 access-key auth path","source":"cnicOcr.js","outcome":"dropped","status":"accepted-pending","next_action":"bearer token path only on edge runtime"}
+]

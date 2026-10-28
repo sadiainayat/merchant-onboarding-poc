@@ -10,33 +10,91 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ActivatedRouteImport } from './routes/activated'
+import { Route as CaptureRouteImport } from './routes/capture'
+import { Route as ChecksRouteImport } from './routes/checks'
+import { Route as QueueRouteImport } from './routes/queue'
+import { Route as TrackingRouteImport } from './routes/tracking'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ActivatedRoute = ActivatedRouteImport.update({
+  id: '/activated',
+  path: '/activated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CaptureRoute = CaptureRouteImport.update({
+  id: '/capture',
+  path: '/capture',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChecksRoute = ChecksRouteImport.update({
+  id: '/checks',
+  path: '/checks',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QueueRoute = QueueRouteImport.update({
+  id: '/queue',
+  path: '/queue',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TrackingRoute = TrackingRouteImport.update({
+  id: '/tracking',
+  path: '/tracking',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/activated': typeof ActivatedRoute
+  '/capture': typeof CaptureRoute
+  '/checks': typeof ChecksRoute
+  '/queue': typeof QueueRoute
+  '/tracking': typeof TrackingRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/activated': typeof ActivatedRoute
+  '/capture': typeof CaptureRoute
+  '/checks': typeof ChecksRoute
+  '/queue': typeof QueueRoute
+  '/tracking': typeof TrackingRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/activated': typeof ActivatedRoute
+  '/capture': typeof CaptureRoute
+  '/checks': typeof ChecksRoute
+  '/queue': typeof QueueRoute
+  '/tracking': typeof TrackingRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    '/' | '/activated' | '/capture' | '/checks' | '/queue' | '/tracking'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/activated' | '/capture' | '/checks' | '/queue' | '/tracking'
+  id:
+    | '__root__'
+    | '/'
+    | '/activated'
+    | '/capture'
+    | '/checks'
+    | '/queue'
+    | '/tracking'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ActivatedRoute: typeof ActivatedRoute
+  CaptureRoute: typeof CaptureRoute
+  ChecksRoute: typeof ChecksRoute
+  QueueRoute: typeof QueueRoute
+  TrackingRoute: typeof TrackingRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +106,51 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/activated': {
+      id: '/activated'
+      path: '/activated'
+      fullPath: '/activated'
+      preLoaderRoute: typeof ActivatedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/capture': {
+      id: '/capture'
+      path: '/capture'
+      fullPath: '/capture'
+      preLoaderRoute: typeof CaptureRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/checks': {
+      id: '/checks'
+      path: '/checks'
+      fullPath: '/checks'
+      preLoaderRoute: typeof ChecksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/queue': {
+      id: '/queue'
+      path: '/queue'
+      fullPath: '/queue'
+      preLoaderRoute: typeof QueueRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tracking': {
+      id: '/tracking'
+      path: '/tracking'
+      fullPath: '/tracking'
+      preLoaderRoute: typeof TrackingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ActivatedRoute: ActivatedRoute,
+  CaptureRoute: CaptureRoute,
+  ChecksRoute: ChecksRoute,
+  QueueRoute: QueueRoute,
+  TrackingRoute: TrackingRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
