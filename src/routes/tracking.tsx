@@ -33,7 +33,7 @@ function Tracking() {
   };
 
   return (
-    <Page narrow-width="true" width="narrow">
+    <Page width="narrow">
       <PageHeader eyebrow="Application status" title={t?.reference ?? "—"} description={t && `${t.business_name || ""} — ${t.message}`} />
       <Panel>
         <ol>
