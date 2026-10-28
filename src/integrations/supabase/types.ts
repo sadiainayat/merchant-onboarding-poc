@@ -14,7 +14,164 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      cases: {
+        Row: {
+          business_address: string | null
+          business_name: string | null
+          category: string | null
+          channel: string
+          cnic_address: string | null
+          cnic_address_confidence: string | null
+          cnic_dob: string | null
+          cnic_father_name: string | null
+          cnic_number: string | null
+          cnic_scanned: boolean | null
+          created_at: string
+          decided_by: string | null
+          decision_note: string | null
+          declared_name: string | null
+          existing_customer: boolean | null
+          gps_lat: number | null
+          gps_lng: number | null
+          id: string
+          name_match_score: number | null
+          name_override: boolean | null
+          owner_name: string | null
+          phone: string | null
+          products: Json
+          queue_reason: string | null
+          reference: string
+          risk_band: string | null
+          shop_photo: boolean | null
+          status: string
+          tier: string | null
+          updated_at: string
+        }
+        Insert: {
+          business_address?: string | null
+          business_name?: string | null
+          category?: string | null
+          channel: string
+          cnic_address?: string | null
+          cnic_address_confidence?: string | null
+          cnic_dob?: string | null
+          cnic_father_name?: string | null
+          cnic_number?: string | null
+          cnic_scanned?: boolean | null
+          created_at?: string
+          decided_by?: string | null
+          decision_note?: string | null
+          declared_name?: string | null
+          existing_customer?: boolean | null
+          gps_lat?: number | null
+          gps_lng?: number | null
+          id?: string
+          name_match_score?: number | null
+          name_override?: boolean | null
+          owner_name?: string | null
+          phone?: string | null
+          products?: Json
+          queue_reason?: string | null
+          reference: string
+          risk_band?: string | null
+          shop_photo?: boolean | null
+          status?: string
+          tier?: string | null
+          updated_at?: string
+        }
+        Update: {
+          business_address?: string | null
+          business_name?: string | null
+          category?: string | null
+          channel?: string
+          cnic_address?: string | null
+          cnic_address_confidence?: string | null
+          cnic_dob?: string | null
+          cnic_father_name?: string | null
+          cnic_number?: string | null
+          cnic_scanned?: boolean | null
+          created_at?: string
+          decided_by?: string | null
+          decision_note?: string | null
+          declared_name?: string | null
+          existing_customer?: boolean | null
+          gps_lat?: number | null
+          gps_lng?: number | null
+          id?: string
+          name_match_score?: number | null
+          name_override?: boolean | null
+          owner_name?: string | null
+          phone?: string | null
+          products?: Json
+          queue_reason?: string | null
+          reference?: string
+          risk_band?: string | null
+          shop_photo?: boolean | null
+          status?: string
+          tier?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      checks: {
+        Row: {
+          case_id: string
+          created_at: string
+          id: number
+          message: string | null
+          mode: string
+          name: string
+          reference: string | null
+          status: string
+        }
+        Insert: {
+          case_id: string
+          created_at?: string
+          id?: number
+          message?: string | null
+          mode: string
+          name: string
+          reference?: string | null
+          status: string
+        }
+        Update: {
+          case_id?: string
+          created_at?: string
+          id?: number
+          message?: string | null
+          mode?: string
+          name?: string
+          reference?: string | null
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "checks_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "cases"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      fbr_atl: {
+        Row: {
+          active: boolean
+          cnic: string
+          snapshot_date: string
+        }
+        Insert: {
+          active: boolean
+          cnic: string
+          snapshot_date: string
+        }
+        Update: {
+          active?: boolean
+          cnic?: string
+          snapshot_date?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
