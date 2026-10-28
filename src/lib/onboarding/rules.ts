@@ -111,7 +111,7 @@ export type Routing = { straightThrough: boolean; riskBand: string; reason: stri
 export function decideRouting(c: Pick<CaseRow, "tier" | "existing_customer" | "products">, checks: { passed: boolean; name: string; status: string }[]): Routing {
   const products = c.products || [];
   const failed = checks.filter((x) => !x.passed);
-  if (failed.length > 0) return { straightThrough: false, riskBand: failed.length > 1 ? "High risk" : "Medium risk", reason: `${failed[0].name} did not pass (${failed[0].status}) — needs manual review.` };
+  if (failed.length > 0) return { straightThrough: false, riskBand: failed.length > 1 ? "High risk" : "Medium risk", reason: `${failed[0]!.name} did not pass (${failed[0]!.status}) — needs manual review.` };
   if (c.tier !== "Micro") return { straightThrough: false, riskBand: "Medium risk", reason: "Tier requires manual review before activation." };
   if (!c.existing_customer) return { straightThrough: false, riskBand: "Low risk", reason: "New-to-bank customer — straight-through rule only covers existing customers." };
   const reviewed = products.find((p) => ALWAYS_REVIEWED.has(p));

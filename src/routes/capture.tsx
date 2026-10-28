@@ -14,7 +14,7 @@ import type { CaseRow, Routing } from "@/lib/onboarding/rules";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/capture")({
-  validateSearch: (s: Record<string, unknown>) => ({ case: String(s.case ?? "") }),
+  validateSearch: (s: Record<string, unknown>) => ({ case: String(s["case"] ?? "") }),
   head: () => ({
     meta: [
       { title: "Capture application — Allied Bank" },

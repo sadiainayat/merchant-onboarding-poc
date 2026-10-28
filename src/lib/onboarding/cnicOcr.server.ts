@@ -41,7 +41,7 @@ function toFields(f: Record<string, unknown>): CnicFields {
   return {
     owner_name: s("owner_name"), cnic_number: s("cnic_number"), cnic_dob: s("cnic_dob"),
     cnic_father_name: s("cnic_father_name"), cnic_address: s("cnic_address"),
-    cnic_address_confidence: f.cnic_address_confidence === "high" ? "high" : "low",
+    cnic_address_confidence: f["cnic_address_confidence"] === "high" ? "high" : "low",
   };
 }
 
@@ -57,12 +57,12 @@ function extract(output: { message?: { content?: Block[] } }) {
 }
 
 async function converse(content: unknown[], withTool: boolean) {
-  const region = process.env.AWS_REGION || "ap-southeast-2";
-  const model = process.env.BEDROCK_MODEL_ID || "qwen.qwen3-vl-235b-a22b";
-  const token = process.env.AWS_BEARER_TOKEN_BEDROCK || process.env.BEDROCK_API_KEY;
+  const region = process.env["AWS_REGION"] || "ap-southeast-2";
+  const model = process.env["BEDROCK_MODEL_ID"] || "qwen.qwen3-vl-235b-a22b";
+  const token = process.env["AWS_BEARER_TOKEN_BEDROCK"] || process.env["BEDROCK_API_KEY"];
   if (!token) throw new Error("AWS_BEARER_TOKEN_BEDROCK is not set.");
   const body: Record<string, unknown> = { messages: [{ role: "user", content }] };
-  if (withTool) body.toolConfig = { tools: [EXTRACT_TOOL], toolChoice: { tool: { name: "extract_cnic_fields" } } };
+  if (withTool) body["toolConfig"] = { tools: [EXTRACT_TOOL], toolChoice: { tool: { name: "extract_cnic_fields" } } };
   const res = await fetch(`https://bedrock-runtime.${region}.amazonaws.com/model/${encodeURIComponent(model)}/converse`, {
     method: "POST",
     headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
@@ -81,7 +81,7 @@ const STUB: CnicFields = {
 export async function scanCnic(input: { frontBase64?: string | null; backBase64?: string | null }) {
   const front = parseDataUrl(input.frontBase64);
   const back = parseDataUrl(input.backBase64);
-  if ((process.env.CNIC_OCR_MODE || "").toLowerCase() === "stub" || (!front && !back)) {
+  if ((process.env["CNIC_OCR_MODE"] || "").toLowerCase() === "stub" || (!front && !back)) {
     return { ...STUB, _source: "stub" as const, _error: null as string | null };
   }
   const content: unknown[] = [{ text: PROMPT_TEXT }];

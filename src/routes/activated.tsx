@@ -8,7 +8,7 @@ import { getCaseFn } from "@/lib/onboarding/cases.functions";
 import type { CaseRow } from "@/lib/onboarding/rules";
 
 export const Route = createFileRoute("/activated")({
-  validateSearch: (s: Record<string, unknown>) => ({ case: String(s.case ?? "") }),
+  validateSearch: (s: Record<string, unknown>) => ({ case: String(s["case"] ?? "") }),
   head: () => ({
     meta: [
       { title: "Merchant activated — Allied Bank" },
