@@ -7,7 +7,7 @@ import { getTracking } from "@/lib/onboarding/cases.functions";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/tracking")({
-  validateSearch: (s: Record<string, unknown>) => ({ case: String(s.case ?? "") }),
+  validateSearch: (s: Record<string, unknown>) => ({ case: String(s["case"] ?? "") }),
   head: () => ({
     meta: [
       { title: "Track your application — Allied Bank" },

@@ -66,7 +66,7 @@ function Index() {
       </div>
       <p className="mt-8 text-xs leading-relaxed text-muted-foreground">
         Name consistency, FBR Active Taxpayer and duplicate checks run on real logic; other checks are simulated for this pilot.{" "}
-        <Link to="/queue" className="font-semibold text-primary hover:underline">Go to the ops queue →</Link>
+        <Link to="/queue" search={{ case: undefined }} className="font-semibold text-primary hover:underline">Go to the ops queue →</Link>
       </p>
     </Page>
   );

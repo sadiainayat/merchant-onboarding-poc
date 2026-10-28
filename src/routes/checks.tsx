@@ -7,7 +7,7 @@ import { getCaseFn, runChecks } from "@/lib/onboarding/cases.functions";
 import { FAIL_STATUSES, type CaseRow } from "@/lib/onboarding/rules";
 
 export const Route = createFileRoute("/checks")({
-  validateSearch: (s: Record<string, unknown>) => ({ case: String(s.case ?? "") }),
+  validateSearch: (s: Record<string, unknown>) => ({ case: String(s["case"] ?? "") }),
   head: () => ({
     meta: [
       { title: "Verification checks — Allied Bank" },

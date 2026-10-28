@@ -10,7 +10,7 @@ import type { CaseRow } from "@/lib/onboarding/rules";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/queue")({
-  validateSearch: (s: Record<string, unknown>) => ({ case: s.case ? String(s.case) : undefined }),
+  validateSearch: (s: Record<string, unknown>) => ({ case: s["case"] ? String(s["case"]) : undefined }),
   head: () => ({
     meta: [
       { title: "Ops review queue — Allied Bank" },

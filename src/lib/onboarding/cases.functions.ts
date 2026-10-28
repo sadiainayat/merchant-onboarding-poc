@@ -10,7 +10,7 @@ async function db() {
 }
 
 function toCase(row: Record<string, unknown>): CaseRow {
-  return { ...(row as unknown as CaseRow), products: Array.isArray(row.products) ? (row.products as string[]) : [] };
+  return { ...(row as unknown as CaseRow), products: Array.isArray(row["products"]) ? (row["products"] as string[]) : [] };
 }
 
 async function getCase(id: string): Promise<CaseRow> {
@@ -31,7 +31,8 @@ const str = (v: unknown) => (typeof v === "string" ? v : undefined);
 function idInput(d: unknown) {
   const id = str((d as { id?: unknown })?.id);
   if (!id || !/^[0-9a-f-]{36}$/i.test(id)) throw new Error("Invalid case id.");
-  return d as { id: string } & Record<string, unknown>;
+  return d as { id: string; owner_name?: unknown; phone?: unknown; frontBase64?: unknown; backBase64?: unknown;
+    business_name?: unknown; business_address?: unknown; category?: unknown; products?: unknown; decision?: unknown; note?: unknown };
 }
 
 function makeReference() {
@@ -70,8 +71,8 @@ export const updateWho = createServerFn({ method: "POST" })
     const declared = str(data.owner_name) ?? row.declared_name;
     const patch: Record<string, unknown> = { declared_name: declared, phone: str(data.phone) ?? row.phone };
     if (row.cnic_scanned) {
-      patch.name_match_score = similarity(declared, row.owner_name);
-      patch.name_override = false;
+      patch["name_match_score"] = similarity(declared, row.owner_name);
+      patch["name_override"] = false;
     }
     return update(row.id, patch);
   });
@@ -81,7 +82,7 @@ export const scanCnicFn = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     const row = await getCase(data.id);
     const { scanCnic } = await import("./cnicOcr.server");
-    const ex = await scanCnic({ frontBase64: str(data.frontBase64), backBase64: str(data.backBase64) });
+    const ex = await scanCnic({ frontBase64: str(data.frontBase64) ?? null, backBase64: str(data.backBase64) ?? null });
     const score = similarity(row.declared_name, ex.owner_name);
     const updated = await update(row.id, {
       owner_name: ex.owner_name, cnic_number: ex.cnic_number, cnic_dob: ex.cnic_dob,
